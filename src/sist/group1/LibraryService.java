@@ -9,10 +9,10 @@ public class LibraryService {
 	private Utils utils = Utils.getInstance();
 	
 	public void login(Scanner sc) {
-		System.out.println("·Î±×ÀÎÀ» ÁøÇàÇÕ´Ï´Ù.");
-		System.out.print("¾ÆÀÌµğ>");
+		System.out.println("ë¡œê·¸ì¸ì„ ì§„í–‰í•©ë‹ˆë‹¤.");
+		System.out.print("ì•„ì´ë””>");
 		String userId = sc.next();
-		System.out.print("ºñ¹Ğ¹øÈ£>");
+		System.out.print("ë¹„ë°€ë²ˆí˜¸>");
 		String password = sc.next();
 		if(userId.equals(utils.getAdmin())&& password.equals(utils.getAdmin())) {
 			this.adminMenu(sc);
@@ -20,7 +20,7 @@ public class LibraryService {
 			try {
 				this.isWrongUser(userId, password);
 				if(this.dao.getCurrentUser(userId, password)!=null) {
-					//ÇöÀç »ç¿ëÀÚ ¼³Á¤
+					//í˜„ì¬ ì‚¬ìš©ì ì„¤ì •
 					utils.setCurrentUser(this.dao.getCurrentUser(userId, password));
 					this.userMenu(sc);
 				}
@@ -32,41 +32,65 @@ public class LibraryService {
 	
 	public void adminMenu(Scanner sc) {
 		while(true){
-			System.out.println("°ü¸®ÀÚ·Î ·Î±×ÀÎ Çß½À´Ï´Ù.");
-			System.out.println("1.µµ¼­ °ü¸® 2.È¸¿ø °ü¸® 0.·Î±× ¾Æ¿ô");
+			System.out.println("ê´€ë¦¬ìë¡œ ë¡œê·¸ì¸ í–ˆìŠµë‹ˆë‹¤.");
+			System.out.println("1.ë„ì„œ ê´€ë¦¬ 2.íšŒì› ê´€ë¦¬ 0.ë¡œê·¸ ì•„ì›ƒ");
 			int input = sc.nextInt();
 			if(input == 0) break;
 			switch(input) {
-			case 1:/*µµ¼­ °ü¸® ¸Ş´º ¸Ş¼Òµå È£Ãâ*/break;
-			case 2:/*È¸¿ø °ü¸® ¸Ş´º ¸Ş¼Òµå È£Ãâ*/break;
-			default : System.out.println("¾Ë ¼ö ¾ø´Â ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			case 1:/*ë„ì„œ ê´€ë¦¬ ë©”ë‰´ ë©”ì†Œë“œ í˜¸ì¶œ*/break;
+			case 2:/*íšŒì› ê´€ë¦¬ ë©”ë‰´ ë©”ì†Œë“œ í˜¸ì¶œ*/break;
+			default : System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			}
 		}
 	}
 	public void userMenu(Scanner sc) {
-		System.out.println("["+utils.getCurrentUser().getName()+"]"+"´ÔÀ¸·Î ·Î±×ÀÎ Çß½À´Ï´Ù.");
-		/*°ü¸®ÀÚ¿¡°Ô ¿Â ¸Ş¼¼Áö°¡ [1]°³ ÀÖ½À´Ï´Ù. (¸Ş¼¼Áö ¸Ş¼Òµå È£Ãâ)*/
-		/*[1] ¿¬Ã¼ÁßÀÎ µµ¼­°¡ ÀÖ½À´Ï´Ù. ¹İ³³ ÇØÁÖ¼¼¿ä. (¿¬Ã¼ ¸Ş¼Òµå È£Ãâ)*/
+		System.out.printf(String.format("[%s]ë‹˜ìœ¼ë¡œ ë¡œê·¸ì¸ í–ˆìŠµë‹ˆë‹¤.", utils.getCurrentUser().getName()));
+		//ê´€ë¦¬ìì—ê²Œ ì˜¨ ë©”ì„¸ì§€ê°€ [1]ê°œ ìˆìŠµë‹ˆë‹¤. (ë©”ì„¸ì§€ ë©”ì†Œë“œ í˜¸ì¶œ)
+		System.out.println(this.dao.viewAllMessages());
+		/*[1] ì—°ì²´ì¤‘ì¸ ë„ì„œê°€ ìˆìŠµë‹ˆë‹¤. ë°˜ë‚© í•´ì£¼ì„¸ìš”. (ì—°ì²´ ë©”ì†Œë“œ í˜¸ì¶œ)*/
 		while(true) {
-			System.out.println("1.µµ¼­ °Ë»ö   2.´ëÃâ ¸ñ·Ï   3.¹İ³³ ¸ñ·Ï   4.¸Ş½ÃÁö È®ÀÎ   0.·Î±×¾Æ¿ô");
-			System.out.print("¼±ÅÃ>");
+			System.out.println("1.ë„ì„œ ê²€ìƒ‰   2.ëŒ€ì¶œ ëª©ë¡   3.ë°˜ë‚© ëª©ë¡   4.ë©”ì‹œì§€ í™•ì¸   0.ë¡œê·¸ì•„ì›ƒ");
+			System.out.print("ì„ íƒ>");
 			int input = sc.nextInt();
 			if(input == 0)break;
 			switch(input) {
-			case 1: /*µµ¼­ °Ë»ö sub¸Ş´º */break;
-			case 2: /*´ëÃâ ¸ñ·Ï sub¸Ş´º*/break;
-			case 3: /*¹İ³³ ¸ñ·Ï sub¸Ş´º*/break;
-			case 4: /*¸Ş¼¼Áö È®ÀÎ sub¸Ş´º*/break;
-			default : System.out.println("¾Ë ¼ö ¾ø´Â ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			case 1: /*ë„ì„œ ê²€ìƒ‰ subë©”ë‰´ */break;
+			case 2: /*ëŒ€ì¶œ ëª©ë¡ subë©”ë‰´*/break;
+			case 3: /*ë°˜ë‚© ëª©ë¡ subë©”ë‰´*/break;
+			case 4: this.viewAllMessages(sc);break;
+			default : System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			}
 		}
 	}
+	
+	public void viewAllMessages(Scanner sc) {
+		System.out.println("1.ë©”ì„¸ì§€ í•œê°œ ì‚­ì œ 2.ë©”ì„¸ì§€ ì „ì²´ ì‚­ì œ 0.ë‚˜ê°€ê¸°");
+		System.out.print("ì„ íƒ>");
+		int input = sc.nextInt();
+		sc.nextLine();
+		switch (input) {
+		case 0:break;
+		/*
+		ì‚­ì œí•  ë©”ì„¸ì§€ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.
+		ë²ˆí˜¸ì…ë ¥>
+		[~ë²ˆ]ë©”ì„¸ì§€ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.*/
+		case 1:this.viewDeleteOneMessage(sc);break;
+		case 2:this.dao.deleteAllMessages();System.out.println("ì „ì²´ ë©”ì„¸ì§€ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");break;
+		}
+	}
+	public void viewDeleteOneMessage(Scanner sc) {
+		int input = sc.nextInt();
+		System.out.println("ì‚­ì œí•  ë©”ì„¸ì§€ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		System.out.printf(String.format("[%dë²ˆ]ë©”ì„¸ì§€ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.", input));
+		this.dao.deleteOneMessage(input);
+	}
+	
 	public void register(Scanner sc) {
-		System.out.println("È¸¿ø°¡ÀÔÀ» ÁøÇàÇÕ´Ï´Ù.");
+		System.out.println("íšŒì›ê°€ì…ì„ ì§„í–‰í•©ë‹ˆë‹¤.");
 
-		System.out.print("¾ÆÀÌµğ>");
+		System.out.print("ì•„ì´ë””>");
 		String userId = sc.next();
-		System.out.print("ºñ¹Ğ¹øÈ£(¿µ¹®+¼ıÀÚ Á¶ÇÕ 8ÀÚ ÀÌ»ó)>");
+		System.out.print("ë¹„ë°€ë²ˆí˜¸(ì˜ë¬¸+ìˆ«ì ì¡°í•© 8ì ì´ìƒ)>");
 		String password = sc.next();
 		while (true) {
 			try {
@@ -74,13 +98,13 @@ public class LibraryService {
 				break;
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				System.out.print("ºñ¹Ğ¹øÈ£(¿µ¹®+¼ıÀÚ Á¶ÇÕ 8ÀÚ ÀÌ»ó)>");
+				System.out.print("ë¹„ë°€ë²ˆí˜¸(ì˜ë¬¸+ìˆ«ì ì¡°í•© 8ì ì´ìƒ)>");
 				password = sc.next();
 			}
 		}
-		System.out.print("ÀÌ¸§>");
+		System.out.print("ì´ë¦„>");
 		String name = sc.next();
-		System.out.print("ÀüÈ­¹øÈ£(010-1234-5678)>");
+		System.out.print("ì „í™”ë²ˆí˜¸(010-1234-5678)>");
 		String phone = sc.next();
 		while(true) {
 			try {
@@ -88,21 +112,21 @@ public class LibraryService {
 				break;
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
-				System.out.print("ÀüÈ­¹øÈ£(010-1234-5678)>");
+				System.out.print("ì „í™”ë²ˆí˜¸(010-1234-5678)>");
 				phone = sc.next();
 			}
 		}
 		if (this.dao.getCurrentUser(userId, password)!=null) {
-			System.out.println("ÀÌ¹Ì Á¸ÀçÇÏ´Â id ÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			System.out.println("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” id ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 		} else {
 			this.dao.register(userId, password, name, phone);
-			System.out.println("È¸¿ø °¡ÀÔÀÌ ¿Ï·á µÇ¾ú½À´Ï´Ù.");
+			System.out.println("íšŒì› ê°€ì…ì´ ì™„ë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		}
 	}
 	
-	//ÇÁ·Î±×·¥ Á¾·á½Ã users, books, checkOuts µ¥ÀÌÅÍ ÀúÀå
+	//í”„ë¡œê·¸ë¨ ì¢…ë£Œì‹œ users, books, checkOuts ë°ì´í„° ì €ì¥
 	public void fileSave() {
-		System.out.println("ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.");
+		System.out.println("í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 		this.dao.logout();
 	}
 	
@@ -110,22 +134,22 @@ public class LibraryService {
 		String temp = "(\\d{3}).*(\\d{3}).*(\\d{4})";
 		Boolean bool = Pattern.matches(temp, password);
 		if(!bool) {
-			throw new PatternException("Àß¸øµÈ ÀüÈ­¹øÈ£ Çü½Ä ÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			throw new PatternException("ì˜ëª»ëœ ì „í™”ë²ˆí˜¸ í˜•ì‹ ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 		}
 	}
 	public void isPasswordPattern(String phone) throws PatternException{
 		String temp = "(?=.*\\d)(?=.*[a-z]).{8,15}";
 		Boolean bool = Pattern.matches(temp, phone);
 		if(!bool) {
-			throw new PatternException("Àß¸øµÈ ºñ¹Ğ¹øÈ£ Çü½Ä ÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			throw new PatternException("ì˜ëª»ëœ ë¹„ë°€ë²ˆí˜¸ í˜•ì‹ ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 		}
 	}
 	public void isWrongUser(String userId, String password) throws ExistUserException{
 		if(this.dao.getCurrentUser(userId, password)==null && !userId.equals(utils.getAdmin())) {
-			throw new ExistUserException("µî·ÏµÇÁö ¾ÊÀº »ç¿ëÀÚ ÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			throw new ExistUserException("ë“±ë¡ë˜ì§€ ì•Šì€ ì‚¬ìš©ì ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 		}
 		if(this.dao.isWrongPassword(userId, password)) {
-			throw new ExistUserException("Àß¸øµÈ ºñ¹Ğ¹øÈ£ ÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			throw new ExistUserException("ì˜ëª»ëœ ë¹„ë°€ë²ˆí˜¸ ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 		}
 	}
 }

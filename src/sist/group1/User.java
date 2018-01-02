@@ -6,12 +6,12 @@ import java.util.*;
 public class User implements Serializable, Comparable<User> {
 	
 	/**
-	 * Á÷·ÄÈ­ UID
+	 * ì§ë ¬í™” UID
 	 */
 	private static final long serialVersionUID = 1L;
 	/*
 	 @Param 
-	 °íÀ¯¹øÈ£(ex. U001, U002...), ¾ÆÀÌµğ, ºñ¹Ğ¹øÈ£, ÀÌ¸§, ÀüÈ­¹øÈ£, ¹ŞÀº ¸Ş¼¼Áö, À¯Àú °íÀ¯ÀÇ ´ëÃâ Á¤º¸
+	 ê³ ìœ ë²ˆí˜¸(ex. U001, U002...), ì•„ì´ë””, ë¹„ë°€ë²ˆí˜¸, ì´ë¦„, ì „í™”ë²ˆí˜¸, ë°›ì€ ë©”ì„¸ì§€, ìœ ì € ê³ ìœ ì˜ ëŒ€ì¶œ ì •ë³´
 	 */
 	private String userNo;
 	private String userId; 

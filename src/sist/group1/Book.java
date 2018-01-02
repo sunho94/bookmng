@@ -5,18 +5,18 @@ import java.io.Serializable;
 public class Book implements Serializable, Comparable<Book>{
 
 	/**
-	 * Á÷·ÄÈ­ UID
+	 * ì§ë ¬í™” UID
 	 */
 	private static final long serialVersionUID = 2L;
 	/*
 	 @Param
-	 °íÀ¯¹øÈ£(ex. BOO1, BOO2...), µµ¼­¸í, ÀúÀÚ, ÃâÆÇ»ç, ÇöÀç µµ¼­ »óÅÂ
+	 ê³ ìœ ë²ˆí˜¸(ex. BOO1, BOO2...), ë„ì„œëª…, ì €ì, ì¶œíŒì‚¬, í˜„ì¬ ë„ì„œ ìƒíƒœ
 	 */
 	private String bookNo;
 	private String bookTitle;
 	private String author;
 	private String publisher;
-	private int bookStatus; //0: ºñÄ¡Áß, 1: ´ëÃâÁß, 2:¿¬Ã¼Áß
+	private int bookStatus; //0: ë¹„ì¹˜ì¤‘, 1: ëŒ€ì¶œì¤‘, 2:ì—°ì²´ì¤‘
 	
 	public Book() {
 		
